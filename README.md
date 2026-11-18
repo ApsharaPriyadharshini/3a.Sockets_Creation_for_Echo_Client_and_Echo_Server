@@ -12,47 +12,53 @@ Sockets Links.
 ## SERVER.PY
 ```
 import socket
-server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.bind(('localhost', 8000))
+server.listen(1)
 
-host = '127.0.0.1' 
-port = 5000 
-server_socket.bind((host, port)) 
-server_socket.listen(1) 
-print("Echo Server is waiting for connection...") 
-client_socket, addr = server_socket.accept() 
-print("Connected to:", addr) 
-while True: 
-    data = client_socket.recv(1024).decode() 
-    if not data: 
-        break 
-print("Client:", data)
-client_socket.send(data.encode())
-client_socket.close() 
-server_socket.close()
+print("Echo Server is running...")
+print("Waiting for client connection...\n")
+
+conn, addr = server.accept()
+print("Connected to client:", addr)
+
+while True:
+    data = conn.recv(1024).decode()
+    if not data:
+        break
+
+    print("Received from client:", data)
+    conn.send(data.encode())  # Echo back
+
+conn.close()
+server.close()
 ```
 
 ## CLIENT.PY
 ```
 import socket
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-host = '127.0.0.1' 
-port = 5000 
-client_socket.connect((host, port)) 
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client.connect(('localhost', 8000))
+
 while True:
-    message = input("Enter message: ")
-    client_socket.send(message.encode()) 
-    if message.lower() == 'exit': 
+    msg = input("Enter message (or 'exit' to stop): ")
+
+    if msg.lower() == "exit":
         break
-data = client_socket.recv(1024).decode() 
-print("Server echoed:", data)
-client_socket.close()
+
+    client.send(msg.encode())
+    reply = client.recv(1024).decode()
+    print("Echo from server:", reply)
+
+client.close()
 ```
 ## OUTPUT
 ## SERVER
-<img width="1457" height="301" alt="image" src="https://github.com/user-attachments/assets/b69c8812-12d1-46be-9a4d-c2d0c7473f0a" />
+<img width="1447" height="306" alt="image" src="https://github.com/user-attachments/assets/2d240f90-565d-4094-a1eb-5147ddd8b633" />
+
 
 ## CLIENT
-<img width="1452" height="312" alt="image" src="https://github.com/user-attachments/assets/923f989e-7705-4a5c-b545-27ef2f088172" />
+<img width="1447" height="332" alt="image" src="https://github.com/user-attachments/assets/e372fcb2-63ca-4c1e-8cb9-e6a0ba96d56e" />
 
 ## RESULT
 Thus, the python program for creating Echo Client and Echo Server using TCP Sockets Links 
