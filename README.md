@@ -30,6 +30,7 @@ client_socket.send(data.encode())
 client_socket.close() 
 server_socket.close()
 ```
+
 ## CLIENT.PY
 ```
 import socket
