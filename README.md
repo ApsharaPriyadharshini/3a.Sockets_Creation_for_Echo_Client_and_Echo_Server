@@ -50,6 +50,7 @@ client_socket.close()
 ## OUTPUT
 ## SERVER
 <img width="1457" height="301" alt="image" src="https://github.com/user-attachments/assets/b69c8812-12d1-46be-9a4d-c2d0c7473f0a" />
+
 ## CLIENT
 <img width="1452" height="312" alt="image" src="https://github.com/user-attachments/assets/923f989e-7705-4a5c-b545-27ef2f088172" />
 
